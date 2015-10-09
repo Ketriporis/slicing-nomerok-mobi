@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width">
+  <title>Advanced address book</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png">
+  <link rel="stylesheet" href="../css/style.css">
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+  <!-- Place favicon.ico in the root directory -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="../js/jquery.fullPage.min.js"></script>
+  <script src="../js/jquery.flexslider.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#fullpage').fullpage({
+        anchors: ['description', 'always', 'organization', 'records', 'settings', 'tariff', 'download', 'reviews'],
+        menu: '#menu',
+        css3: false ,
+        scrollingSpeed: 1000
+      });
+    });
+  </script>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      function htmSlider(){
+        /* Зададим следующие параметры */
+        /* обертка слайдера */
+        var slideWrap = jQuery('.slide-wrap');
+        /* кнопки вперед/назад и старт/пауза */
+        var nextLink = jQuery('.next-slide');
+        var prevLink = jQuery('.prev-slide');
+        var playLink = jQuery('.auto');
+        /* Проверка на анимацию */
+        var is_animate = false;
+        /* ширина слайда с отступами */
+        var slideWidth = jQuery('.slide-item').outerWidth();
+        /* смещение слайдера */
+        var scrollSlider = slideWrap.position().left - slideWidth;
+
+        /* Клик по ссылке на следующий слайд */
+        nextLink.click(function(){
+          if(!slideWrap.is(':animated')) {
+            slideWrap.animate({left: scrollSlider}, 500, function(){
+              slideWrap
+                .find('.slide-item:first')
+                .appendTo(slideWrap)
+                .parent()
+                .css({'left': 0});
+            });
+          }
+        });
+
+        /* Клик по ссылке на предыдующий слайд */
+        prevLink.click(function(){
+          if(!slideWrap.is(':animated')) {
+            slideWrap
+              .css({'left': scrollSlider})
+              .find('.slide-item:last')
+              .prependTo(slideWrap)
+              .parent()
+              .animate({left: 0}, 500);
+          }
+        });
+
+        /* Функция автоматической прокрутки слайдера */
+        function autoplay(){
+          if(!is_animate){
+            is_animate = true;
+            slideWrap.animate({left: scrollSlider}, 500, function(){
+              slideWrap
+                .find('.slide-item:first')
+                .appendTo(slideWrap)
+                .parent()
+                .css({'left': 0});
+              is_animate = false;
+            });
+          }
+        }
+
+        /* Клики по ссылкам старт/пауза */
+        playLink.click(function(){
+          if(playLink.hasClass('play')){
+            /* Изменяем клас у кнопки на клас паузы */
+            playLink.removeClass('play').addClass('pause');
+            /* Добавляем кнопкам вперед/назад клас который их скрывает */
+            jQuery('.navy').addClass('disable');
+            /* Инициализируем функцию autoplay() через переменную
+             чтобы потом можно было ее отключить
+             */
+            timer = setInterval(autoplay, 1000);
+          } else {
+            playLink.removeClass('pause').addClass('play');
+            /* показываем кнопки вперед/назад */
+            jQuery('.navy').removeClass('disable');
+            /* Отключаем функцию autoplay() */
+            clearInterval(timer);
+          }
+        });
+
+      }
+
+      /* иницилизируем функцию слайдера */
+      htmSlider();
+    });
+  </script>
+</head>
+<body >
+
+<main >
+  <div  class="small-menu">
+    <ul id="menu" class="small-ul" >
+      <li data-menuanchor="description" class="menu"><a href="#description"><div class="circle"></div></a></li>
+      <li data-menuanchor="always" class="menu"><a href="#always"><div class="circle"></div></a></li>
+      <li data-menuanchor="organization" class="menu"><a href="#organization"><div class="circle"></div></a></li>
+      <li data-menuanchor="records" class="menu"><a href="#records"><div class="circle"></div></a></li>
+      <li data-menuanchor="settings" class="menu"><a href="#settings"><div class="circle"></div></a></li >
+      <li data-menuanchor="tariff" class="menu"><a href="#tariff"><div class="circle"></div></a></li>
+      <li data-menuanchor="download" class="menu"><a href="#download"><div class="circle"></div></a></li>
+      <li data-menuanchor="reviews" class="menu"><a href="#reviews"><div class="circle"></div></a></li>
+    </ul>
+  </div>
+  <div id="fullpage">
+    <div class="section block1  content-container" data-anchor="block1">
+      <div>
+        <ul class="nav-bar">
+          <li >
+            <img class="logo" src="../images/logo.png" alt=""/>
+          </li>
+          <ul class="nav-menu">
+            <li data-menuanchor="description" class="li-menu li-description"><a href="#description">Описание</a></li>
+            <li data-menuanchor="always" class="li-menu li-always"><a href="#always">Возможности</a></li>
+            <li data-menuanchor="tariff" class="li-menu li-tariff"><a href="#tariff">Тарифы</a></li>
+            <li data-menuanchor="reviews" class="li-menu li-reviews"><a href="#reviews">Отзывы</a></li>
+            <li data-menuanchor="download" class="li-menu li-download"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+          </ul>
+        </ul>
+        <ul class="menu dropdown nav-bar">
+          <li >
+            <img class="logo" src="../images/logo.png" alt=""/>
+          </li>
+          <li data-menuanchor="download" class="li-menu"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+        </ul>
+      </div>
+      <div class="block1-content">
+        <div class="text-block1">Делаем из обычных клиентов постоянных</div>
+        <div class="small-text-block1">Продвинутая адресная книга, CRM и органайзер в одном приложении.
+          <div   class="small-text-block1">В любой точке и на любом устройстве.</div>
+        </div>
+        <div class="play-btn">
+          <a href="#" id="show-video-link" style="transition-duration: 00ms; opacity: 1; transition-delay: 0ms; transition-timing-function: cubic-bezier(0, 0, 0, 0);">
+            <img class="gif" src="../images/video-play.gif" alt=""/>
+          </a>
+        </div>
+        <div class="download-block1">
+          <a class="download  a-download " id="download-masthead" data-toggle="modal" data-target="#sms-download-modal" style="transition-duration: 500ms; opacity: 1; transition-delay: 1500ms; transition-timing-function: cubic-bezier(0, 1, 0.5, 1);">Загрузить приожение</a>
+        </div>
+        <div>
+          <img class="arrow" src="../images/arrow.png" alt=""/>
+        </div>
+      </div>
+    </div>
+    <div class="section block2 content-container" data-anchor="block2">
+      <ul class="nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <ul class="nav-menu">
+          <li data-menuanchor="description" class="li-menu li-description"><a href="#description">Описание</a></li>
+          <li data-menuanchor="always" class="li-menu li-always"><a href="#always">Возможности</a></li>
+          <li data-menuanchor="tariff" class="li-menu li-tariff"><a href="#tariff">Тарифы</a></li>
+          <li data-menuanchor="reviews" class="li-menu li-reviews"><a href="#reviews">Отзывы</a></li>
+          <li data-menuanchor="download" class="li-menu li-download"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+        </ul>
+      </ul>
+      <ul class="menu dropdown nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <li data-menuanchor="download" class="li-menu"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+      </ul>
+
+      <div class="flex-block2"   >
+        <div class="text">
+          <div class="text-block2">
+            Всегда под рукой
+          </div>
+          <div class="small-text">
+            <div class="small-text-block2">
+              Контакты доступны всегда и везде.
+              <div>С любого устройства - телефона, планшета или ПК.</div>
+              <div>Всегда в актуальном состоянии.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-img2" ></div>
+      </div>
+    </div>
+    <div class="section block3 content-container" data-anchor="block3">
+      <ul class="nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <ul class="nav-menu">
+          <li data-menuanchor="description" class="li-menu li-description"><a href="#description">Описание</a></li>
+          <li data-menuanchor="always" class="li-menu li-always"><a href="#always">Возможности</a></li>
+          <li data-menuanchor="tariff" class="li-menu li-tariff"><a href="#tariff">Тарифы</a></li>
+          <li data-menuanchor="reviews" class="li-menu li-reviews"><a href="#reviews">Отзывы</a></li>
+          <li data-menuanchor="download" class="li-menu li-download"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+        </ul>
+        <ul class="menu dropdown nav-bar">
+          <li >
+            <img class="logo" src="../images/logo.png" alt=""/>
+          </li>
+          <li data-menuanchor="download" class="li-menu"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+        </ul>
+      </ul>
+      <div class="flex-block3">
+        <div class="text">
+          <div class="text-block3">
+            Идеальная организация контактов
+          </div>
+          <div class="small-text">
+            <div class="small-text-block3">
+              Работайте с адресной книгой так, как удобно вам.
+              Сохраняйте, сортируйте и фильтруйте контакты по
+              заданным вам категориям и характеристикам.
+            </div>
+          </div>
+        </div>
+        <div class="flex-img3" ></div>
+      </div>
+    </div>
+    <div class="section block4 content-container" data-anchor="block4">
+      <div class="block4-content">
+        <ul class="nav-bar">
+          <li >
+            <img class="logo" src="../images/logo.png" alt=""/>
+          </li>
+          <ul class="nav-menu">
+            <li data-menuanchor="description" class="li-menu li-description"><a href="#description">Описание</a></li>
+            <li data-menuanchor="always" class="li-menu li-always"><a href="#always">Возможности</a></li>
+            <li data-menuanchor="tariff" class="li-menu li-tariff"><a href="#tariff">Тарифы</a></li>
+            <li data-menuanchor="reviews" class="li-menu li-reviews"><a href="#reviews">Отзывы</a></li>
+            <li data-menuanchor="download" class="li-menu li-download"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+          </ul>
+        </ul>
+        <ul class="menu dropdown nav-bar">
+          <li >
+            <img class="logo" src="../images/logo.png" alt=""/>
+          </li>
+          <li data-menuanchor="download" class="li-menu"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+        </ul>
+        <div class="flex-block4">
+          <div class="text">
+            <div class="text-block4">
+              Контроль и учет
+            </div>
+            <div clas="small-text">
+              <div class="small-text-block4">
+                Подключите своих сотрудников к сервису и
+                получите наглядную картину результатов работы
+              </div>
+            </div>
+          </div>
+          <div class="flex-img4" ></div>
+        </div>
+      </div>
+    </div>
+    <div class="section block5 content-container" data-anchor="block5">
+      <ul class="nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <ul class="nav-menu">
+          <li data-menuanchor="description" class="li-menu li-description"><a href="#description">Описание</a></li>
+          <li data-menuanchor="always" class="li-menu li-always"><a href="#always">Возможности</a></li>
+          <li data-menuanchor="tariff" class="li-menu li-tariff"><a href="#tariff">Тарифы</a></li>
+          <li data-menuanchor="reviews" class="li-menu li-reviews"><a href="#reviews">Отзывы</a></li>
+          <li data-menuanchor="download" class="li-menu li-download"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+        </ul>
+      </ul>
+      <ul class="menu dropdown nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <li data-menuanchor="download" class="li-menu"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+      </ul>
+      <div class="flex-block5">
+        <div class="text">
+          <div class="text-block5">
+            Удобные настройки
+          </div>
+          <div class="small-text">
+            <div class="small-text-block5">
+              Создавайте и редактируйте необходимые вам
+              категории в произвольном порядке
+            </div>
+          </div>
+        </div>
+        <div class="flex-img5" ></div>
+      </div>
+    </div>
+    <div class="section block6 content-container" data-anchor="block6">
+      <ul class="nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <ul class="nav-menu">
+          <li data-menuanchor="description" class="li-menu li-description"><a href="#description">Описание</a></li>
+          <li data-menuanchor="always" class="li-menu li-always"><a href="#always">Возможности</a></li>
+          <li data-menuanchor="tariff" class="li-menu li-tariff"><a href="#tariff">Тарифы</a></li>
+          <li data-menuanchor="reviews" class="li-menu li-reviews"><a href="#reviews">Отзывы</a></li>
+          <li data-menuanchor="download" class="li-menu li-download"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+        </ul>
+      </ul>
+      <ul class="menu dropdown nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <li data-menuanchor="download" class="li-menu"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+      </ul>
+      <div class="flex-block6">
+        <div class="text-block6">Тарифы</div>
+        <div class="block6-content">
+          <div class="tariff-form">
+            <div class="tariff-header">
+              Бесплатно
+            </div>
+            <div class="text-tariff-c">Контактов</div>
+            <div class="quantity">100 </div>
+            <div class="text-tariff">0 грн/мес</div>
+            <div class="text-center">
+              <button class="btn-include">Подключить</button>
+            </div>
+          </div>
+          <div class="tariff-form">
+            <div class="tariff-header">
+              Стандарт
+            </div>
+            <div class="text-tariff-c">Контактов</div>
+            <div class="quantity">500 </div>
+            <div class="text-tariff">109 грн/мес</div>
+            <div class="text-center">
+              <button class="btn-include">Подключить</button>
+            </div>
+          </div>
+          <div class="tariff-form-pop">
+            <div class="tariff-header-pop">
+              Профи
+            </div>
+            <div class="text-tariff-c">Контактов</div>
+            <div class="quantity">1000 </div>
+            <div class="text-tariff">219 грн/мес</div>
+            <div class="text-center">
+              <button class="btn-include btn-include-pop">Подключить</button>
+            </div>
+          </div>
+          <div class="tariff-form">
+            <div class="tariff-header">
+              Анлим
+            </div>
+            <div class="text-tariff-c">Контактов</div>
+            <div class="quantity last-q"> ∞  </div>
+            <div class="text-tariff">Без абонплаты, 2200грн</div>
+            <div class="text-center">
+              <button class="btn-include">Подключить</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="section block7 content-container" data-anchor="block7">
+      <ul class="nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <ul class="nav-menu">
+          <li data-menuanchor="description" class="li-menu li-description"><a href="#description">Описание</a></li>
+          <li data-menuanchor="always" class="li-menu li-always"><a href="#always">Возможности</a></li>
+          <li data-menuanchor="tariff" class="li-menu li-tariff"><a href="#tariff">Тарифы</a></li>
+          <li data-menuanchor="reviews" class="li-menu li-reviews"><a href="#reviews">Отзывы</a></li>
+          <li data-menuanchor="download" class="li-menu li-download"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+        </ul>
+      </ul>
+      <ul class="menu dropdown nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <li data-menuanchor="download" class="li-menu"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+      </ul>
+      <div class="flex-block7">
+        <div class="text-block7">Загрузить приложение</div>
+        <div class="block7-content">
+          <div class="block7-left">
+            <div class="text-block7-h">
+              Превратите обычных
+              клиентов в постоянных
+            </div>
+            <div class="text-block7-small">
+              Сервис позволяет в 3 касания сохранить контакт
+              в нужную категорию, добавить комментарий и
+              напоминание.
+            </div>
+            <div>
+              <div class="googleplay">
+                <a href="https://play.google.com/store/apps/details?id=NomerokMOBI">
+                  <img alt="Get it on Google Play"
+                       src="https://developer.android.com/images/brand/ru_generic_rgb_wo_45.png" />
+                </a>
+              </div>
+              <div class="appstore">
+                <a href="">
+                  <img src="../images/apple.svg" alt=""/>
+                </a>
+              </div>
+            </div>
+
+          </div>
+          <div class="block7-center">
+            <div id="slideshow-wrap">
+              <input type="radio" id="button-1" name="controls" checked="checked"/>
+              <label for="button-1"></label>
+              <input type="radio" id="button-2" name="controls"/>
+              <label for="button-2"></label>
+              <input type="radio" id="button-3" name="controls"/>
+              <label for="button-3"></label>
+              <input type="radio" id="button-4" name="controls"/>
+              <label for="button-4"></label>
+              <label for="button-1" class="arrows" id="arrow-1">></label>
+              <label for="button-2" class="arrows" id="arrow-2">></label>
+              <label for="button-3" class="arrows" id="arrow-3">></label>
+              <label for="button-4" class="arrows" id="arrow-4">></label>
+              <div id="slideshow-inner">
+                <ul>
+                  <li id="slide1">
+                    <img src="../images/1.png" />
+                  </li>
+                  <li id="slide2">
+                    <img src="../images/2.png" />
+                  </li>
+                  <li id="slide3">
+                    <img src="../images/3.png" />
+                  </li>
+                  <li id="slide4">
+                    <img src="../images/4.png"/>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="block7-right">
+            <div class="text-block7-h">
+              Всегда под рукой
+            </div>
+            <div class="text-block7-small">
+              Контакты доступны всегда и везде.
+              С любого устройства - телефона, планшета или ПК.
+              Всегда в актуальном состоянии.
+            </div>
+            <div class="text-block7-h">
+              Идеальная организация
+              контактов
+            </div>
+            <div class="text-block7-small">
+              Работайте с адресной книгой так, как удобно вам.
+              Сохраняйте, сортируйте и фильтруйте контакты по
+              заданным вам категориям и характеристикам.
+            </div>
+            <div class="text-block7-h">
+              Контроль и учет
+            </div>
+            <div class="text-block7-small">
+              Подключите своих сотрудников к сервису и
+              получите наглядную картину как работают
+              ваши сотрудники
+            </div>
+            <div class="text-block7-h">
+              Удобные настройки
+            </div>
+            <div class="text-block7-small">
+              Создавайте и редактируйте необходимые вам
+              категории в произвольном порядке
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="section block8  " data-anchor="block8 content-container">
+      <ul class="nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <ul class="nav-menu">
+          <li data-menuanchor="description" class="li-menu li-description"><a href="#description">Описание</a></li>
+          <li data-menuanchor="always" class="li-menu li-always"><a href="#always">Возможности</a></li>
+          <li data-menuanchor="tariff" class="li-menu li-tariff"><a href="#tariff">Тарифы</a></li>
+          <li data-menuanchor="reviews" class="li-menu li-reviews"><a href="#reviews">Отзывы</a></li>
+          <li data-menuanchor="download" class="li-menu li-download"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+        </ul>
+      </ul>
+      <ul class="menu dropdown nav-bar">
+        <li >
+          <img class="logo" src="../images/logo.png" alt=""/>
+        </li>
+        <li data-menuanchor="download" class="li-menu"><a href="#download"><button class="btn-download">Загрузить приложение</button></a></li>
+      </ul>
+      <div class="text-block8"> Почему наши клиенты нас любят</div>
+      <div class="small-text-block8">Узнайте мнение наших пользователей которые уже используют приложение.</div>
+      <div class="block8-content ">
+        <div class="slider1">
+          <div class="slide-list">
+            <div class="slide-wrap">
+              <div class="slide-item">
+                <div class="block-reviews">
+                  <div class="reviews">
+                    Установил номерок, спасибо,работает супер!!!
+                  </div>
+                  <div class="reviews-img">
+                    <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+                    <div class="avatar-name">Анатолий</div>
+                    <div class="avatar-s">Одесса</div></div>
+                </div>
+              </div>
+              <div class="slide-item">
+                <div class="block-reviews">
+                  <div class="reviews">
+                    Скачал я и через два дня скачали все сотрудники. База объединенная. Спасибо!
+                    <div>P.S. Где же вы были раньше???</div>
+                  </div>
+                  <div class="reviews-img">
+                    <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+                    <div class="avatar-name">Андрей </div>
+                    <div class="avatar-s">Одесса."Автотехникс"</div>
+                  </div>
+                </div>
+              </div>
+              <div class="slide-item">
+                <div class="block-reviews">
+                  <div class="reviews">
+                    Дякую дуже!!! За три днi 96 нових клiентiв!) окремий респект за зручнiсть.
+                  </div>
+                  <div class="reviews-img">
+                    <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+                    <div class="avatar-name">Вячеслав</div>
+                    <div class="avatar-s">Луцк. "Авторазборка"</div>
+                  </div>
+                </div>
+              </div>
+              <div class="slide-item">
+                <div class="block-reviews">
+                  <div class="reviews">
+                    За рабочую неделю. 784 клиента, кто больше? (9 работников).
+                  </div>
+                  <div class="reviews-img">
+                    <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+                    <div class="avatar-name">Игорь</div>
+                    <div class="avatar-s"> "Самурай-авто"</div>
+                  </div>
+                </div>
+              </div>
+              <div class="slide-item">
+                <div class="block-reviews">
+                  <div class="reviews">
+                    244 новых клиента за три дня. На троих. Игорь ты второй пока) без обид!
+                  </div>
+                  <div class="reviews-img">
+                    <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+                    <div class="avatar-name">Платон</div>
+                    <div class="avatar-s">Киев 'Автокисс"</div>
+                  </div>
+                </div>
+              </div>
+              <div class="slide-item">
+                <div class="block-reviews">
+                  <div class="reviews">
+                    За неделю 68 человек. Но главное 42 000 грн от 72 человек которые скачали номерок по моей рецензии. Всем пока- улетел в Турцию$$$)))
+                  </div>
+                  <div class="reviews-img">
+                    <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+                    <div class="avatar-name">Максим</div>
+                    <div class="avatar-s">Одесса. "Авторынок куяльник"</div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div name="prev" class="navy prev-slide">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="#bbb" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+            </svg>
+          </div>
+          <div name="next" class="navy next-slide">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="#bbb" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+            </svg>
+          </div>
+        </div>
+        <div class="help-block  reviews-hide">
+          <div class="block-reviews">
+            <div class="reviews">
+              Установил номерок, спасибо,работает супер!!!
+            </div>
+            <div class="reviews-img">
+              <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+              <div class="avatar-name">Анатолий</div>
+              <div class="avatar-s">Одесса</div>
+            </div>
+          </div>
+          <div class="block-reviews">
+            <div class="reviews">
+              Скачал я и через два дня скачали все сотрудники. База объединенная. Спасибо!
+              <div>P.S. Где же вы были раньше???</div>
+            </div>
+            <div class="reviews-img">
+              <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+              <div class="avatar-name">Андрей </div>
+              <div class="avatar-s">Одесса."Автотехникс"</div>
+            </div>
+          </div>
+          <div class="block-reviews">
+            <div class="reviews">
+              Дякую дуже!!! За три днi 96 нових клiентiв!) окремий респект за зручнiсть.
+            </div>
+            <div class="reviews-img">
+              <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+              <div class="avatar-name">Вячеслав</div>
+              <div class="avatar-s">Луцк. "Авторазборка"</div>
+            </div>
+          </div>
+          <div class="block-reviews">
+            <div class="reviews">
+              За рабочую неделю. 784 клиента, кто больше? (9 работников).
+            </div>
+            <div class="reviews-img">
+              <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+              <div class="avatar-name">Игорь</div>
+              <div class="avatar-s"> "Самурай-авто"</div>
+            </div>
+          </div>
+          <div class="block-reviews">
+            <div class="reviews">
+              244 новых клиента за три дня. На троих. Игорь ты второй пока) без обид!
+            </div>
+            <div class="reviews-img">
+              <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+              <div class="avatar-name">Платон</div>
+              <div class="avatar-s">Киев 'Автокисс"</div>
+            </div>
+          </div>
+          <div class="block-reviews">
+            <div class="reviews">
+              За неделю 68 человек. Но главное 42 000 грн от 72 человек которые скачали номерок по моей рецензии. Всем пока- улетел в Турцию$$$)))
+
+            </div>
+            <div class="reviews-img">
+              <img class="avatar" src="http://avafree.ru/ludi/avafree_ru_ludi_999900020.jpg" alt=""/>
+              <div class="avatar-name">Максим</div>
+              <div class="avatar-s">Одесса. "Авторынок куяльник"</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer-block footer shyp-footer">
+        <div class="dark-footer">
+          <div class="soc">
+            <span class="text-social">Следить за нами </span>
+            <span    class="vk">B</span>
+            <span class="facebook">f</span>
+          </div>
+          <div style="display: none;" id="asd_subscribe_res"></div>
+          <form id="asd_subscribe_form" method="post" action="/">
+            <div class="submit_group">
+              <input class="input-footer" type="text" placeholder="Введите e-mail" value="" name="asd_email">
+              <input class="input-btn" type="submit" value="Подписаться" id="asd_subscribe_submit" name="asd_submit">
+            </div>
+          </form>
+        </div>
+        <div class="footer2">
+          <div>
+            <svg style="width:25px;height:25px;position: absolute;" viewBox="0 0 26 26">
+              <path fill="#fff" d="M20,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6A2,2 0 0,0 20,4M20,18H4V8L12,13L20,8V18M20,6L12,11L4,6V6H20V6Z" />
+            </svg>
+								<span class="email">
+									admin@nomerok.mobi
+								</span>
+          </div>
+          <div class="footer-soc">
+							<span class="share">
+								<svg style="width:22px;height:22px" viewBox="0 0 24 24">
+                  <path fill="#fff" d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z" />
+                </svg>
+							</span>
+            <span    class="vk">B</span>
+            <span class="facebook">f</span>
+          </div>
+        </div>
+        <div class="copyright">
+          Все права защищены 2015
+        </div>
+      </footer>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</main>
+</body>
+</html>
