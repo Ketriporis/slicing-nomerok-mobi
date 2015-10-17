@@ -80,13 +80,13 @@ gulp.task('js', function () {
 
 gulp.task('images', function(cb) {
   gulp.src(['src/images/**/*'])
-  .pipe(imageOp({
-    optimizationLevel: 5,
-    progressive: true,
-    interlaced: true
-  }))
-  .pipe(clean())
-  .pipe(gulp.dest('dist/images')).on('end', cb).on('error', cb)
+  // .pipe(imageOp({
+  //   optimizationLevel: 5,
+  //   progressive: true,
+  //   interlaced: true
+  // }))
+  // .pipe(clean())
+  .pipe(gulp.dest('dist/images'))
   .pipe(browserSync.stream());
 });
 
