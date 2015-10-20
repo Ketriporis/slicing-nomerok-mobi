@@ -106,7 +106,14 @@ gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages());
 });
+
+
 var ghpages = require('gh-pages');
 var path = require('path');
- 
-ghpages.publish(path.join(__dirname, 'dist'), function(err) { ... });
+
+gulp.task("deploy1", function(cb) {
+  ghpages.publish(path.join(process.cwd(), "dist"), cb);
+});
+
+
+
