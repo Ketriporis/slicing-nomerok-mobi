@@ -115,5 +115,16 @@ gulp.task("deploy1", function(cb) {
   ghpages.publish(path.join(process.cwd(), "dist"), cb);
 });
 
+gulp.task("css", function () {
 
+  var postcss = require("gulp-postcss")
+  var stylelint = require("stylelint")
+  var reporter = require("postcss-reporter")
+
+  return gulp.src("src/**/*.css")
+    .pipe(postcss([
+      stylelint({ /* your options */ }),
+      reporter({ clearMessages: true }),
+    ]))
+})
 
