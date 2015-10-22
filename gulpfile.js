@@ -123,7 +123,14 @@ gulp.task("css", function () {
 
   return gulp.src("src/**/*.css")
     .pipe(postcss([
-      stylelint({ /* your options */ }),
+      stylelint(
+        "rules": { 
+          "block-no-empty": 0,
+          "rule-no-duplicate-properties"
+
+        /* your options */ 
+
+      }),
       reporter({ clearMessages: true }),
     ]))
 })
