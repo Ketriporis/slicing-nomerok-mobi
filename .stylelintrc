@@ -1,6 +1,0 @@
-#
-css: ""
-rule: my-no-empty-blocks-rule
-options: "always"
-ok 1 empty should pass
-#
